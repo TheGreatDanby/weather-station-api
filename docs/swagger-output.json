@@ -1,0 +1,1146 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Weather API",
+    "description": "JSON REST API weather data readings"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8088"
+    }
+  ],
+  "basePath": "",
+  "paths": {
+    "/docs": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/weather/all": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Get all weather readings. (Limited to 100) ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/weather/paged/{page}": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Get a collection of weather readings in pages",
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/weather/Woodford/{months}": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Get max rain for the Woodford Sensor from all weather readings (currently limited to 10)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "months",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Define the period in months",
+            "example": "5"
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/weather/spaceTime": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Get weather data for a specific device and date and time",
+        "description": "",
+        "parameters": [
+          {
+            "name": "deviceName",
+            "in": "query",
+            "description": "Find the temperature, atmospheric pressure, radiation and precipitation recorded by a specific station at a given date and time. <br /> Name of the Weather Sensor like: <b>Woodford_Sensor, Noosa_Sensor, or Yandina_Sensor</b>",
+            "required": true,
+            "example": "Noosa_Sensor",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date and time in the format of: YYYY-MM-DD",
+            "required": true,
+            "example": "2022-12-05",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/weather/deviceName/{deviceName}": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Get the maximum precipitation recorded in the last 5 Months for a specific sensor",
+        "description": "",
+        "parameters": [
+          {
+            "name": "deviceName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Find the maximum precipitation recorded in the last 5 Months for a specific sensor, returning the sensor name, reading date and time and the precipitation value (single / projection).   <br /> Name of the Weather Sensor like: <b>Woodford_Sensor or Noosa_Sensor or Yandina_Sensor </b>",
+            "example": "Woodford_Sensor"
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/weather/max-temperature": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Find the maximum Temp(C) recorded for all stations for a given Date / Time range (start and finish date)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "description": "Start Date in the format of: YYYY-MM-DD",
+            "required": true,
+            "example": "2022-06-05",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "description": "End Date in the format of: YYYY-MM-DD",
+            "required": true,
+            "example": "2022-12-05",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/weather/createOne": {
+      "post": {
+        "tags": [
+          "Weather Readings - POST"
+        ],
+        "summary": "Create a weather reading.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Adding new weather reading",
+          "content": {
+            "application/json": {
+              "schema": {
+                "device_name": "string",
+                "precipitation": "number",
+                "latitude": "number",
+                "longitude": "number",
+                "temperature": "number",
+                "atmospheric_pressure": "number",
+                "max_wind_speed": "number",
+                "solar_radiation": "number",
+                "vapor_pressure": "number",
+                "humidity": "number",
+                "wind_direction": "number"
+              },
+              "example": {
+                "device_name": "Woodford_Sensor",
+                "precipitation": 0.085,
+                "latitude": 152.77891,
+                "longitude": -26.95064,
+                "temperature": 23.07,
+                "atmospheric_pressure": 128.02,
+                "max_wind_speed": 3.77,
+                "solar_radiation": 290.5,
+                "vapor_pressure": 1.72,
+                "humidity": 71.9,
+                "wind_direction": 163.3
+              }
+            }
+          }
+        }
+      }
+    },
+    "/weather/createMany": {
+      "post": {
+        "tags": [
+          "Weather Readings - POST"
+        ],
+        "summary": "Create multiple weather readings.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Adding multiple new weather readings",
+          "content": {
+            "application/json": {
+              "schema": {
+                "device_name": "string",
+                "precipitation": "number",
+                "latitude": "number",
+                "longitude": "number",
+                "temperature": "number",
+                "atmospheric_pressure": "number",
+                "max_wind_speed": "number",
+                "solar_radiation": "number",
+                "vapor_pressure": "number",
+                "humidity": "number",
+                "wind_direction": "number"
+              },
+              "example": [
+                {
+                  "device_name": "Woodford_Sensor 1",
+                  "precipitation": 0.085,
+                  "latitude": 152.77891,
+                  "longitude": -26.95064,
+                  "temperature": 23.07,
+                  "atmospheric_pressure": 128.02,
+                  "max_wind_speed": 3.77,
+                  "solar_radiation": 290.5,
+                  "vapor_pressure": 1.72,
+                  "humidity": 71.9,
+                  "wind_direction": 163.3
+                },
+                {
+                  "device_name": "Woodford_Sensor 2",
+                  "precipitation": 0.085,
+                  "latitude": 152.77891,
+                  "longitude": -26.95064,
+                  "temperature": 23.07,
+                  "atmospheric_pressure": 128.02,
+                  "max_wind_speed": 3.77,
+                  "solar_radiation": 290.5,
+                  "vapor_pressure": 1.72,
+                  "humidity": 71.9,
+                  "wind_direction": 163.3
+                },
+                {
+                  "device_name": "Woodford_Sensor 3",
+                  "precipitation": 0.085,
+                  "latitude": 152.77891,
+                  "longitude": -26.95064,
+                  "temperature": 23.07,
+                  "atmospheric_pressure": 128.02,
+                  "max_wind_speed": 3.77,
+                  "solar_radiation": 290.5,
+                  "vapor_pressure": 1.72,
+                  "humidity": 71.9,
+                  "wind_direction": 163.3
+                },
+                {
+                  "device_name": "Woodford_Sensor 4",
+                  "precipitation": 0.085,
+                  "latitude": 152.77891,
+                  "longitude": -26.95064,
+                  "temperature": 23.07,
+                  "atmospheric_pressure": 128.02,
+                  "max_wind_speed": 3.77,
+                  "solar_radiation": 290.5,
+                  "vapor_pressure": 1.72,
+                  "humidity": 71.9,
+                  "wind_direction": 163.3
+                },
+                {
+                  "device_name": "Woodford_Sensor 5",
+                  "precipitation": 0.085,
+                  "latitude": 152.77891,
+                  "longitude": -26.95064,
+                  "temperature": 23.07,
+                  "atmospheric_pressure": 128.02,
+                  "max_wind_speed": 3.77,
+                  "solar_radiation": 290.5,
+                  "vapor_pressure": 1.72,
+                  "humidity": 71.9,
+                  "wind_direction": 163.3
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/weather/update": {
+      "patch": {
+        "tags": [
+          "Weather Readings - PATCH"
+        ],
+        "summary": "Update a weather readings.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Update an existing weather reading",
+          "content": {
+            "application/json": {
+              "schema": {
+                "id": "string",
+                "device_name": "string",
+                "precipitation": "number",
+                "latitude": "number",
+                "longitude": "number",
+                "temperature": "number",
+                "atmospheric_pressure": "number",
+                "max_wind_speed": "number",
+                "solar_radiation": "number",
+                "vapor_pressure": "number",
+                "humidity": "number",
+                "wind_direction": "number"
+              },
+              "example": {
+                "id": "641a6bf00e2c74fca47ea4a1",
+                "device_name": "Woodford_Sensor",
+                "precipitation": 0.085,
+                "latitude": 152.77891,
+                "longitude": -26.95064,
+                "temperature": 23.07,
+                "atmospheric_pressure": 128.02,
+                "max_wind_speed": 3.77,
+                "solar_radiation": 290.5,
+                "vapor_pressure": 1.72,
+                "humidity": 71.9,
+                "wind_direction": 163.3
+              }
+            }
+          }
+        }
+      }
+    },
+    "/entries/updatePrecipitation": {
+      "put": {
+        "tags": [
+          "Weather Readings - PUT"
+        ],
+        "summary": "Update precipitation for specified entries",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "precipitation": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "precipitation"
+                ]
+              },
+              "example": {
+                "id": "641a6bf00e2c74fca47ea4a8",
+                "precipitation": 50
+              }
+            }
+          }
+        }
+      }
+    },
+    "/weather/specificReading/{id}": {
+      "get": {
+        "tags": [
+          "Weather Readings - GET"
+        ],
+        "summary": "Get a specific weather reading by ID.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/weather/delete/{id}": {
+      "delete": {
+        "tags": [
+          "Weather Readings - DELETE"
+        ],
+        "summary": "Delete a weather reading by ID.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ID",
+            "in": "path",
+            "description": "Delete Weather By ID",
+            "required": true,
+            "example": "641a6bf00e2c74fca47ea4a8",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "tags": [
+          "Users - GET"
+        ],
+        "summary": "Get a list with all users",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users - POST"
+        ],
+        "summary": "Create a user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "User Login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "email": "string",
+                "password": "number",
+                "role": "string",
+                "firstName": "string",
+                "lastName": "string"
+              },
+              "example": {
+                "email": "email@server.com",
+                "password": "password",
+                "role": "role",
+                "firstName": "Firstname",
+                "lastName": "Lastname"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users - GET"
+        ],
+        "summary": "Get a specific user by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/by-key/{authenticationKey}": {
+      "get": {
+        "tags": [
+          "Users - GET"
+        ],
+        "summary": "Get a user by the authentication key ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "Users - POST"
+        ],
+        "summary": "User Login",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "User Login",
+          "content": {
+            "application/json": {
+              "schema": {
+                "email": "string",
+                "password": "number"
+              },
+              "example": {
+                "email": "email@server.com",
+                "password": "password"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/logout": {
+      "post": {
+        "tags": [
+          "Users - POST"
+        ],
+        "summary": "User Logout",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "User Logout",
+          "content": {
+            "application/json": {
+              "schema": {
+                "authenticationKey": "string"
+              },
+              "example": {
+                "authenticationKey": "22ebfdea-7535-43b4-9436-7ca2ab9f2408"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "tags": [
+          "Users - POST"
+        ],
+        "summary": "Register a user",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Register a new User",
+          "content": {
+            "application/json": {
+              "schema": {
+                "email": "string",
+                "password": "number",
+                "firstName": "string",
+                "lastName": "string"
+              },
+              "example": {
+                "email": "email@server.com",
+                "password": "password",
+                "firstName": "Firstname",
+                "lastName": "Lastname"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/update": {
+      "patch": {
+        "tags": [
+          "Users - PATCH"
+        ],
+        "summary": "Only Update a value for a specific a user",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Update a existing User ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "id": "string",
+                "email": "string",
+                "password": "number",
+                "role": "string",
+                "firstName": "string",
+                "lastName": "string",
+                "authenticationKey": "string"
+              },
+              "example": {
+                "id": "641a6bf00e2c74fca47ea4a1",
+                "email": "email@server.com",
+                "password": "password",
+                "role": "role",
+                "firstName": "Firstname",
+                "lastName": "Lastname",
+                "authenticationKey": "authenticationKey"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/role": {
+      "put": {
+        "tags": [
+          "Users - PUT"
+        ],
+        "summary": "Update user role by date.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Update access level for at least two users in the same query, based on a date range in which the users were created.  Start Date in the format of: YYYY-MM-DD,   End Date in the format of: YYYY-MM-DD and   New User Role. Admin, Teacher or Student ",
+          "content": {
+            "application/json": {
+              "schema": {
+                "startDate": "string",
+                "endDate": "string",
+                "newRole": "string"
+              },
+              "example": {
+                "startDate": "2023-05-01",
+                "endDate": "2023-05-07",
+                "newRole": "Teacher"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "put": {
+        "tags": [
+          "Users - PUT"
+        ],
+        "summary": "Create or Override a value for a specific user by ID.",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "description": "Create or Override a value for a specific user by ID",
+          "content": {
+            "application/json": {
+              "schema": {
+                "email": "string",
+                "password": "number",
+                "firstName": "string",
+                "lastName": "string"
+              },
+              "example": {
+                "email": "email@server.com",
+                "password": "password",
+                "firstName": "Firstname",
+                "lastName": "Lastname"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/deleteOne/{id}": {
+      "delete": {
+        "tags": [
+          "Users - DELETE"
+        ],
+        "summary": "Delete a user by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "ID",
+            "in": "path",
+            "description": "Delete User By ID",
+            "required": true,
+            "example": "642582d2cd42967d21706df0",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/users/deleteMany/": {
+      "delete": {
+        "tags": [
+          "Users - DELETE"
+        ],
+        "summary": "Delete multiple users by ID",
+        "description": "",
+        "parameters": [
+          {
+            "name": "authenticationKey",
+            "in": "header",
+            "required": true,
+            "example": "be39783e-0aaa-4fc8-b0d8-5e3f0a8b1465",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "example": [
+                "641a6bf00e2c74fca47ea4a1",
+                "641a6bf00e2c74fca47ea4a2",
+                "641a6bf00e2c74fca47ea4a3"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

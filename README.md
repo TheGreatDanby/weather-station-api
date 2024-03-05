@@ -32,17 +32,70 @@ This stack provides a robust setup for developing, documenting, and deploying a 
 
 ## API Endpoints
 
-- **Insert a New Reading for a Weather Station**: `POST /weather-data`
-- **Insert a New User**: `POST /user`
-- **Insert Multiple Sensor Readings for a Single Station**: `POST /weather-data/batch`
-- **Find Maximum Precipitation for a Sensor**: `GET /weather-data/precipitation/max`
-- **Retrieve Specific Weather Data by Station and Time**: `GET /weather-data/{stationId}`
-- **Find Maximum Temperature Across Stations**: `GET /weather-data/temperature/max`
-- **Query with Index Key**: `GET /query-index`
-- **Delete a User by ID**: `DELETE /user/{userId}`
-- **Delete Inactive Users**: `DELETE /users/inactive`
-- **Update Precipitation Value**: `PATCH /weather-data/{dataId}/precipitation`
-- **Update User Access Levels**: `PATCH /users/access-levels`
+### Weather Readings Endpoints
+
+- **Get All Weather Readings**
+  - `GET /weather/all`: Retrieves all weather readings, limited to 100 entries.
+
+- **Get Paged Weather Readings**
+  - `GET /weather/paged/{page}`: Fetches weather readings in a paginated format.
+
+- **Get Max Rain for Woodford Sensor**
+  - `GET /weather/Woodford/{months}`: Retrieves maximum rainfall data for the Woodford sensor over a specified number of months.
+
+- **Get Weather Data by Space and Time**
+  - `GET /weather/spaceTime`: Fetches weather data for a specific device and date/time.
+
+- **Get Weather Data by Device Name**
+  - `GET /weather/deviceName/{deviceName}`: Retrieves maximum precipitation recorded in the last 5 months for a specified sensor.
+
+- **Find Maximum Temperature**
+  - `GET /weather/max-temperature`: Finds the maximum temperature recorded across all stations for a specified date/time range.
+
+- **Get Specific Weather Reading by ID**
+  - `GET /weather/specificReading/{id}`: Retrieves a specific weather reading by its ID.
+
+- **Create a Weather Reading**
+  - `POST /weather/createOne`: Allows the creation of a single weather reading.
+
+- **Create Multiple Weather Readings**
+  - `POST /weather/createMany`: Enables the creation of multiple weather readings at once.
+
+- **Update Weather Reading**
+  - `PATCH /weather/update`: Updates a specific weather reading.
+
+- **Update Precipitation for Entries**
+  - `PUT /entries/updatePrecipitation`: Updates precipitation values for specified entries.
+
+- **Delete a Weather Reading by ID**
+  - `DELETE /weather/delete/{id}`: Removes a specific weather reading by ID.
+
+### User Endpoints
+
+- **Get All Users**
+  - `GET /users`: Retrieves a list of all users.
+
+- **Get Specific User by ID**
+  - `GET /users/{id}`: Fetches a specific user by their ID.
+
+- **Get User by Authentication Key**
+  - `GET /users/by-key/{authenticationKey}`: Retrieves a user by their authentication key.
+
+- **Update User Information**
+  - `PATCH /users/update`: Updates information for a specific user.
+
+- **Update User Role**
+  - `PUT /user/role`: Updates the role of a user based on date.
+
+- **Create or Override User Information**
+  - `PUT /user/{id}`: Creates or overrides information for a specific user by ID.
+
+- **Delete a User by ID**
+  - `DELETE /users/deleteOne/{id}`: Deletes a user by their ID.
+
+- **Delete Multiple Users**
+  - `DELETE /users/deleteMany/`: Deletes multiple users based on their IDs.
+
 
 ## Contributing
 

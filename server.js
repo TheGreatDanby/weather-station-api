@@ -1,5 +1,7 @@
 import express from "express"
 import cors from "cors"
+import 'dotenv/config'
+
 
 // Create express application 
 const port = 8088
@@ -11,8 +13,7 @@ const app = express()
 // to access this API
 app.use(cors({
     // Allow all origins
-    origin: ["https://www.google.com",
-        "https://stackoverflow.com"]
+    origin: []
 }))
 
 // Enable JSON request parsing middleware.

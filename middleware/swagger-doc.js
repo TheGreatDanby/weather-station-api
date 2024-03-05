@@ -7,7 +7,7 @@ const docsRouter = Router()
 
 var options = {
     swaggerOptions: {
-        docExpansion: "none",
+        // docExpansion: "none",
         operationsSorter: "method"
     }
 }
